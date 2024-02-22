@@ -35,21 +35,21 @@ job("Azure DEV Deployment") {
 //        schedule { cron("59 23 * * SUN") }
 //    }
 
-    host("Sync deployment status") {
-        kotlinScript { api ->
-            val deployVersion = api.space().projects.automation.deployments.get(
-                project = api.projectIdentifier(),
-                targetIdentifier = TargetIdentifier.Key(deploymentKey),
-                deploymentIdentifier = DeploymentIdentifier.Status(DeploymentIdentifierStatus.scheduled)
-            ).version
-            api.space().projects.automation.deployments.start(
-                project = api.projectIdentifier(),
-                targetIdentifier = TargetIdentifier.Key(deploymentKey),
-                version = deployVersion,
-                syncWithAutomationJob = true
-            )
-        }
-    }
+//    host("Sync deployment status") {
+//        kotlinScript { api ->
+//            val deployVersion = api.space().projects.automation.deployments.get(
+//                project = api.projectIdentifier(),
+//                targetIdentifier = TargetIdentifier.Key(deploymentKey),
+//                deploymentIdentifier = DeploymentIdentifier.Status(DeploymentIdentifierStatus.scheduled)
+//            ).version
+//            api.space().projects.automation.deployments.start(
+//                project = api.projectIdentifier(),
+//                targetIdentifier = TargetIdentifier.Key(deploymentKey),
+//                version = deployVersion,
+//                syncWithAutomationJob = true
+//            )
+//        }
+//    }
 
     val sharedBuildPath = "to-deploy"
     val zipFile = "dist.zip"
