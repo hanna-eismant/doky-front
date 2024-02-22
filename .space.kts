@@ -10,7 +10,6 @@ job("Deploy front to azure") {
     val sharedBuildPath = "client-dist"
     val zipFile = "dist.zip"
     container(displayName = "Build", image = "node:18-alpine") {
-        workDir = "client"
         shellScript {
             content = """
                    npm ci && npm run build
