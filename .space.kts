@@ -14,7 +14,9 @@ job("Azure DEV Deployment") {
             content = """
                    npm ci && npm run build
                    mkdir ${'$'}JB_SPACE_FILE_SHARE_PATH/$sharedBuildPath/dist
-                   cd ${'$'}JB_SPACE_FILE_SHARE_PATH/$sharedBuildPath/
+                   cd ${'$'}JB_SPACE_FILE_SHARE_PATH/$sharedBuildPath
+                   mkdir dist
+                   cd ${'$'}JB_SPACE_FILE_SHARE_PATH/$sharedBuildPath/dist
                    ls -la
                """.trimIndent()
         }
