@@ -7,13 +7,16 @@ job("Azure DEV Deployment") {
         }
     }
 
-    val sharedBuildPath = "dist"
+    val sharedBuildPath = "to-deploy"
     val zipFile = "dist.zip"
     container(displayName = "Build", image = "node:18-alpine") {
         shellScript {
             content = """
                    npm ci && npm run build
                    mkdir ${'$'}JB_SPACE_FILE_SHARE_PATH/$sharedBuildPath
+                   mkdir ${'$'}JB_SPACE_FILE_SHARE_PATH/$sharedBuildPath/dist
+                   cd dist && ls -la
+                   cp -a . ${'$'}JB_SPACE_FILE_SHARE_PATH/$sharedBuildPath/dist
                    cd ${'$'}JB_SPACE_FILE_SHARE_PATH/$sharedBuildPath
                    ls -la
                """.trimIndent()
