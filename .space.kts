@@ -58,9 +58,8 @@ job("Azure DEV Deployment") {
             content = """
                    npm ci && npm run build
                    mkdir ${'$'}JB_SPACE_FILE_SHARE_PATH/$sharedBuildPath
-                   mkdir ${'$'}JB_SPACE_FILE_SHARE_PATH/$sharedBuildPath/dist
-                   cd dist && ls -la
-                   cp -a . ${'$'}JB_SPACE_FILE_SHARE_PATH/$sharedBuildPath/dist
+                   cd dist
+                   cp -a . ${'$'}JB_SPACE_FILE_SHARE_PATH/$sharedBuildPath
                    cd ${'$'}JB_SPACE_FILE_SHARE_PATH/$sharedBuildPath
                    ls -la
                """.trimIndent()
@@ -71,7 +70,7 @@ job("Azure DEV Deployment") {
         shellScript {
             content = """
                    cd ${'$'}JB_SPACE_FILE_SHARE_PATH/$sharedBuildPath
-                   zip -r $zipFile dist/.             
+                   zip -r $zipFile *             
                    ls -la
                """.trimIndent()
         }
