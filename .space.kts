@@ -12,9 +12,10 @@ job("Deploy front to azure") {
     container(displayName = "Build", image = "node:18-alpine") {
         shellScript {
             content = """
+                   apt-get install zip unzip
                    npm ci && npm run build
+                   zip -r $zipFile dist             
                    mkdir ${'$'}JB_SPACE_FILE_SHARE_PATH/$sharedBuildPath/
-                   tar -zcvf $zipFile dist
                    cp dist.zip ${'$'}JB_SPACE_FILE_SHARE_PATH/$sharedBuildPath/$zipFile
                    cd ${'$'}JB_SPACE_FILE_SHARE_PATH/$sharedBuildPath/
                    ls -la
