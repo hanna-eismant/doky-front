@@ -30,13 +30,13 @@ job("Tests for main branch") {
 }
 
 job("Azure DEV Deployment") {
-    startOn {
-        gitPush {
-            anyRefMatching {
-                +"refs/heads/main"
-            }
-        }
-    }
+//    startOn {
+//        gitPush {
+//            anyRefMatching {
+//                +"refs/heads/main"
+//            }
+//        }
+//    }
 
     val sharedBuildPath = "to-deploy"
     val zipFile = "dist.zip"
