@@ -16,6 +16,8 @@ job("Deploy front to azure") {
                    mkdir ${'$'}JB_SPACE_FILE_SHARE_PATH/$sharedBuildPath/
                    tar -zcvf $zipFile dist
                    cp dist.zip ${'$'}JB_SPACE_FILE_SHARE_PATH/$sharedBuildPath/$zipFile
+                   cd ${'$'}JB_SPACE_FILE_SHARE_PATH/$sharedBuildPath/
+                   ls -la
                """.trimIndent()
         }
     }
