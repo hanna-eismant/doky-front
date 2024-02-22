@@ -58,7 +58,7 @@ job("Azure DEV Deployment") {
         shellScript {
             content = """
                    cd ${'$'}JB_SPACE_FILE_SHARE_PATH/$sharedBuildPath
-                   zip -r $zipFile dist             
+                   zip -r $zipFile dist/.             
                    ls -la
                """.trimIndent()
         }
