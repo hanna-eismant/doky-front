@@ -20,8 +20,7 @@ job("Deploy front to azure") {
         }
     }
 
-    container("microsoft/azure-cli") {
-
+    container("mcr.microsoft.com/azure-clii") {
         env["AZURE_SUBSCRIPTION"] = "{{ project:azure-subscription }}"
         env["AZURE_RESOURCE_GROUP"] = "{{ project:azure-resource-group }}"
         env["AZURE_APP_NAME"] = "{{ project:azure-app-name-front }}"
