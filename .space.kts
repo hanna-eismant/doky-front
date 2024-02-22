@@ -1,3 +1,34 @@
+import java.time.DayOfWeek
+import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
+import java.time.temporal.TemporalAdjusters
+
+var deploymentKey = "azure-dev-front"
+
+job("Tests for main branch") {
+    startOn {
+        gitPush {
+            anyRefMatching {
+                +"refs/heads/main"
+            }
+        }
+    }
+
+    host("Schedule Azure DEV Deployment") {
+        kotlinScript { api ->
+            val deployVersion = "Aardvark-v0.1." + api.executionNumber()
+            api.space().projects.automation.deployments.schedule(
+                project = api.projectIdentifier(),
+                targetIdentifier = TargetIdentifier.Key(deploymentKey),
+                version = deployVersion,
+                scheduledStart = getNextSundayDate()
+            )
+        }
+    }
+}
+
 job("Azure DEV Deployment") {
     startOn {
         gitPush {
@@ -33,13 +64,27 @@ job("Azure DEV Deployment") {
         }
     }
 
-    container(displayName = "Deploy to azure","mcr.microsoft.com/azure-cli") {
+    container(displayName = "Deploy to azure", "mcr.microsoft.com/azure-cli") {
         env["AZURE_SUBSCRIPTION"] = "{{ project:azure-subscription }}"
         env["AZURE_RESOURCE_GROUP"] = "{{ project:azure-resource-group }}"
         env["AZURE_APP_NAME"] = "{{ project:azure-app-name-front }}"
         env["AZURE_TENANT"] = "{{ project:azure-tenant }}"
         env["AZURE_CLIENT"] = "{{ project:azure-client }}"
         env["AZURE_AUTH_KEY"] = "{{ project:azure-auth-key }}"
+
+        kotlinScript { api ->
+            val deployVersion = api.space().projects.automation.deployments.get(
+                project = api.projectIdentifier(),
+                targetIdentifier = TargetIdentifier.Key(deploymentKey),
+                deploymentIdentifier = DeploymentIdentifier.Status(DeploymentIdentifierStatus.scheduled)
+            ).version
+            api.space().projects.automation.deployments.start(
+                project = api.projectIdentifier(),
+                targetIdentifier = TargetIdentifier.Key(deploymentKey),
+                version = deployVersion,
+                syncWithAutomationJob = true
+            )
+        }
 
         shellScript {
             content = """
@@ -48,4 +93,12 @@ job("Azure DEV Deployment") {
             """
         }
     }
+}
+
+fun getNextSundayDate(): Instant {
+    var date = ZonedDateTime.of(LocalDateTime.now(), ZoneId.of("UTC"))
+    // set time to 11:59 pm UTC
+    date = date.withHour(23).withMinute(59).withSecond(0).withNano(0)
+    val sunday = date.with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY))
+    return Instant.parse(sunday.format(DateTimeFormatter.ISO_INSTANT))
 }
