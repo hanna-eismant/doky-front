@@ -13,7 +13,6 @@ job("Deploy front to azure") {
         shellScript {
             content = """
                    npm ci && npm run build
-                   cd dist
                    mkdir ${'$'}JB_SPACE_FILE_SHARE_PATH/$sharedBuildPath/
                    zip -r $zipFile dist
                    cp dist.zip ${'$'}JB_SPACE_FILE_SHARE_PATH/$sharedBuildPath/$zipFile
