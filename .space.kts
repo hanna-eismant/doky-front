@@ -31,12 +31,25 @@ job("Tests for main branch") {
 
 job("Azure DEV Deployment") {
 //    startOn {
-//        gitPush {
-//            anyRefMatching {
-//                +"refs/heads/main"
-//            }
-//        }
+//        // every Sunday at 11:59 pm UTC
+//        schedule { cron("59 23 * * SUN") }
 //    }
+
+    host("Sync deployment status") {
+        kotlinScript { api ->
+            val deployVersion = api.space().projects.automation.deployments.get(
+                project = api.projectIdentifier(),
+                targetIdentifier = TargetIdentifier.Key(deploymentKey),
+                deploymentIdentifier = DeploymentIdentifier.Status(DeploymentIdentifierStatus.scheduled)
+            ).version
+            api.space().projects.automation.deployments.start(
+                project = api.projectIdentifier(),
+                targetIdentifier = TargetIdentifier.Key(deploymentKey),
+                version = deployVersion,
+                syncWithAutomationJob = true
+            )
+        }
+    }
 
     val sharedBuildPath = "to-deploy"
     val zipFile = "dist.zip"
@@ -71,20 +84,6 @@ job("Azure DEV Deployment") {
         env["AZURE_TENANT"] = "{{ project:azure-tenant }}"
         env["AZURE_CLIENT"] = "{{ project:azure-client }}"
         env["AZURE_AUTH_KEY"] = "{{ project:azure-auth-key }}"
-
-        kotlinScript { api ->
-            val deployVersion = api.space().projects.automation.deployments.get(
-                project = api.projectIdentifier(),
-                targetIdentifier = TargetIdentifier.Key(deploymentKey),
-                deploymentIdentifier = DeploymentIdentifier.Status(DeploymentIdentifierStatus.scheduled)
-            ).version
-            api.space().projects.automation.deployments.start(
-                project = api.projectIdentifier(),
-                targetIdentifier = TargetIdentifier.Key(deploymentKey),
-                version = deployVersion,
-                syncWithAutomationJob = true
-            )
-        }
 
         shellScript {
             content = """
