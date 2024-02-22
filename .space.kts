@@ -29,10 +29,6 @@ job("Deploy front to azure") {
         env["AZURE_CLIENT"] = "{{ project:azure-client }}"
         env["AZURE_AUTH_KEY"] = "{{ project:azure-auth-key }}"
 
-        env["web"] = "{{ project:web }}"
-        env["ACCOUNT_KEY"] = "{{ project:azure-account-key }}"
-        env["ACCOUNT_NAME"] = "{{ project:azure-account-name }}"
-
         shellScript {
             content = """
                 az login --service-principal -t ${'$'}AZURE_TENANT -u ${'$'}AZURE_CLIENT -p ${'$'}AZURE_AUTH_KEY
