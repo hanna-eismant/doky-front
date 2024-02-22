@@ -1,4 +1,4 @@
-job("Deploy front to azure") {
+job("Azure DEV Deployment") {
     startOn {
         gitPush {
             anyRefMatching {
@@ -12,18 +12,25 @@ job("Deploy front to azure") {
     container(displayName = "Build", image = "node:18-alpine") {
         shellScript {
             content = """
-                   apt-get install zip unzip
                    npm ci && npm run build
-                   zip -r $zipFile dist             
-                   mkdir ${'$'}JB_SPACE_FILE_SHARE_PATH/$sharedBuildPath/
-                   cp dist.zip ${'$'}JB_SPACE_FILE_SHARE_PATH/$sharedBuildPath/$zipFile
+                   mkdir ${'$'}JB_SPACE_FILE_SHARE_PATH/$sharedBuildPath/dist
                    cd ${'$'}JB_SPACE_FILE_SHARE_PATH/$sharedBuildPath/
                    ls -la
                """.trimIndent()
         }
     }
 
-    container("mcr.microsoft.com/azure-cli") {
+    container(displayName = "Zip dist", image = "joshkeegan/zip") {
+        shellScript {
+            content = """
+                   cd ${'$'}JB_SPACE_FILE_SHARE_PATH/$sharedBuildPath/
+                   zip -r $zipFile dist             
+                   ls -la
+               """.trimIndent()
+        }
+    }
+
+    container(displayName = "Deploy to azure","mcr.microsoft.com/azure-cli") {
         env["AZURE_SUBSCRIPTION"] = "{{ project:azure-subscription }}"
         env["AZURE_RESOURCE_GROUP"] = "{{ project:azure-resource-group }}"
         env["AZURE_APP_NAME"] = "{{ project:azure-app-name-front }}"
