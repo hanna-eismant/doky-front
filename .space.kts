@@ -7,16 +7,14 @@ job("Azure DEV Deployment") {
         }
     }
 
-    val sharedBuildPath = "client-dist"
+    val sharedBuildPath = "dist"
     val zipFile = "dist.zip"
     container(displayName = "Build", image = "node:18-alpine") {
         shellScript {
             content = """
                    npm ci && npm run build
-                   mkdir ${'$'}JB_SPACE_FILE_SHARE_PATH/$sharedBuildPath/dist
+                   mkdir ${'$'}JB_SPACE_FILE_SHARE_PATH/$sharedBuildPath
                    cd ${'$'}JB_SPACE_FILE_SHARE_PATH/$sharedBuildPath
-                   mkdir dist
-                   cd ${'$'}JB_SPACE_FILE_SHARE_PATH/$sharedBuildPath/dist
                    ls -la
                """.trimIndent()
         }
@@ -25,7 +23,7 @@ job("Azure DEV Deployment") {
     container(displayName = "Zip dist", image = "joshkeegan/zip") {
         shellScript {
             content = """
-                   cd ${'$'}JB_SPACE_FILE_SHARE_PATH/$sharedBuildPath/
+                   cd ${'$'}JB_SPACE_FILE_SHARE_PATH/$sharedBuildPath
                    zip -r $zipFile dist             
                    ls -la
                """.trimIndent()
