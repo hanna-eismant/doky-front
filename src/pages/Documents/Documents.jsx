@@ -25,12 +25,14 @@ export default () => {
           <thead>
           <tr>
             <th scope="col">Name</th>
+            <th scope="col">Modified Date</th>
           </tr>
           </thead>
           <tbody>
           {!isLoading ? data.map?.((document) => (
             <tr key={document.id}>
               <td>{document.name}</td>
+              <td>{document.modifiedDate}</td>
             </tr>
           )) : 'Loading'}
           </tbody>
