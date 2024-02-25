@@ -3,10 +3,12 @@ import useFormData from "../../../hooks/useFormData";
 import useEditDocumentQuery from "./useEditDocumentQuery.js";
 import HorizontalFormInput from "../../../components/formComponents/HorizontalFormInput.jsx";
 import HorizontalFormText from "../../../components/formComponents/HorizontalFormText.jsx";
+import { useAddToast } from '../../../components/Toasts';
 
 export default ({ document }) => {
   const { data, fields: { name, description } } = useFormData(document);
   const [ editDocument, { isLoading } ] = useEditDocumentQuery();
+  const addToast = useAddToast();
 
   const onSubmit = useCallback(async event => {
     event.preventDefault();
@@ -14,6 +16,8 @@ export default ({ document }) => {
     const response = await editDocument(data);
     if (response?.error) {
       alert(response.error.message);
+    } else {
+      addToast('Saved')
     }
   });
 

@@ -14,7 +14,6 @@ export default () => {
   const [ fetchDocument, { data, isLoading } ] = useDocumentQuery();
 
   useEffect(() => {
-    debugger;
     fetchDocument(params.id);
   }, [ fetchDocument, params.id ]);
 

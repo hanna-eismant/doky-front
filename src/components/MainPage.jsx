@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 import { Link, Outlet, useLocation } from 'react-router-dom';
 import classNames from 'classnames';
+import { ToastContextProvider } from './Toasts/ToastsContext';
 
 const menuItems = [
   {
@@ -31,31 +32,32 @@ export default ({children}) => {
   const location  = useLocation();
   return (
     <div className="container-fluid">
-      <div className="row">
-        <nav className="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
-          <div className="position-sticky pt-3">
-            <ul className="nav flex-column nav-pills">
-              {menuItems.map(({ name, path, hasSubRoutes }) => {
-                const isActive = hasSubRoutes ? location.pathname.startsWith(path) : path === location.pathname;
-                console.log(name, path, isActive);
-                return (
-                  <MenuItem
-                    name={name}
-                    path={path}
-                    key={name}
-                    isActive={isActive} 
-                  />
-                );
-              })}
-            </ul>
-          </div>
-        </nav>
-        <main className="ms-sm-auto col-lg-10">
-          <div className="row">
-            <Outlet />
-          </div>
-        </main>
-      </div>
+      <ToastContextProvider>
+        <div className="row">
+          <nav className="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+            <div className="position-sticky pt-3">
+              <ul className="nav flex-column nav-pills">
+                {menuItems.map(({ name, path, hasSubRoutes }) => {
+                  const isActive = hasSubRoutes ? location.pathname.startsWith(path) : path === location.pathname;
+                  return (
+                    <MenuItem
+                      name={name}
+                      path={path}
+                      key={name}
+                      isActive={isActive} 
+                    />
+                  );
+                })}
+              </ul>
+            </div>
+          </nav>
+          <main className="ms-sm-auto col-lg-10">
+            <div className="row">
+              <Outlet />
+            </div>
+          </main>
+        </div>
+      </ToastContextProvider>
     </div>
   );
 };
