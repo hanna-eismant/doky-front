@@ -18,10 +18,10 @@ export default () => {
         className="d-flex flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
       </div>
       <div>
-        Hello {isLoading ? '-' : data.userUid}
+        Hello {isLoading ? '-' : data.uid}
       </div>
       <div>
-        {data.userUid
+        {data.uid
           ? <a href="#" onClick={logout}>Logout</a>
           : <Link to="login">Login</Link>
         }

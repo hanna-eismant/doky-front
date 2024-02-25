@@ -1,16 +1,22 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import EditDocumentForm from './EditDocumentForm/EditDocumentForm.jsx';
-import {useNavigate} from 'react-router-dom';
+import {useNavigate, useParams} from 'react-router-dom';
+import useDocumentQuery from './useDocumentQuery.js';
 
 export default () => {
   const navigate = useNavigate();
-
-  const reload = useCallback(() => {
-
-  }, [navigate]);
+  const params = useParams();
+ 
   const goBack = useCallback(() => {
     navigate('/documents');
   }, [navigate]);
+
+  const [ fetchDocument, { data, isLoading } ] = useDocumentQuery();
+
+  useEffect(() => {
+    debugger;
+    fetchDocument(params.id);
+  }, [ fetchDocument, params.id ]);
 
   return (
     <>
@@ -24,7 +30,7 @@ export default () => {
         </h1>
       </div>
       <div>
-        <EditDocumentForm onSaved={reload}/>
+        {!isLoading && <EditDocumentForm document={data} />}
       </div>
     </>
   );

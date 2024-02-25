@@ -8,13 +8,13 @@ import EditDocumentPage from "../Documents/EditDocumentPage.jsx";
 
 export default () => {
   return (
-    <MainPage>
-      <Routes>
-        <Route path="/" element={<Home />} />
+    <Routes>
+      <Route path="/" element={<MainPage />}>
+        <Route path="" element={<Home />} />
         <Route path='documents' element={<Documents />} />
         <Route path='documents/new' element={<CreateDocumentPage />} />
-        <Route path='documents/edit' element={<EditDocumentPage />} />
-      </Routes>
-    </MainPage>
+        <Route path='documents/edit/:id' element={<EditDocumentPage />} />
+      </Route>
+    </Routes>
   );
 };

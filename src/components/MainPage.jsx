@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { Link, useLocation, useMatch } from 'react-router-dom';
+import { Link, Outlet, useLocation } from 'react-router-dom';
 import classNames from 'classnames';
 
 const menuItems = [
@@ -37,6 +37,7 @@ export default ({children}) => {
             <ul className="nav flex-column nav-pills">
               {menuItems.map(({ name, path, hasSubRoutes }) => {
                 const isActive = hasSubRoutes ? location.pathname.startsWith(path) : path === location.pathname;
+                console.log(name, path, isActive);
                 return (
                   <MenuItem
                     name={name}
@@ -50,7 +51,9 @@ export default ({children}) => {
           </div>
         </nav>
         <main className="ms-sm-auto col-lg-10">
-          <div className="row">{children}</div>
+          <div className="row">
+            <Outlet />
+          </div>
         </main>
       </div>
     </div>

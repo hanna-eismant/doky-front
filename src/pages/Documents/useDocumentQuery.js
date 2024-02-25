@@ -1,13 +1,13 @@
 import {useCallback, useState} from "react";
-import {put} from "../../../api/request.js";
+import {get} from "../../api/request.js";
 
 export default () => {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState({});
 
-  const fetch = useCallback(async (formData) => {
+  const fetch = useCallback(async (id) => {
     setIsLoading(true);
-    const data = await put(`documents/${formData.id}`, formData);
+    const data = await get(`documents/${id}`);
     setData(data);
     setIsLoading(false);
     return data;
