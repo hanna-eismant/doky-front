@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useMemo} from 'react';
 import useDocumentsQuery from "./useDocumentsQuery";
 import {useNavigate} from 'react-router-dom';
 
@@ -10,6 +10,10 @@ export default () => {
   const goToCreateDocument = useCallback(() => {
     navigate('/documents/new');
   }, [navigate]);
+
+  const getGoToEditDocumentHandler = id => () => {
+    navigate(`/documents/edit/${id}`);
+  };
 
   return (
     <>
@@ -24,6 +28,7 @@ export default () => {
         <table className="table table-striped table-hover">
           <thead>
           <tr>
+            <th scope="col">Actions</th>
             <th scope="col">Name</th>
             <th scope="col">Modified Date</th>
           </tr>
@@ -31,6 +36,11 @@ export default () => {
           <tbody>
           {!isLoading ? data.map?.((document) => (
             <tr key={document.id}>
+              <td>
+                <button type="button" className="btn btn-outline-primary" onClick={getGoToEditDocumentHandler(document.id)}>
+                  <i className="bi bi-file-earmark-plus me-1"></i><span>Edit</span>
+                </button>
+              </td>
               <td>{document.name}</td>
               <td>{document.modifiedDate}</td>
             </tr>

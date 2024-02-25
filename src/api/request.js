@@ -13,14 +13,13 @@ const getHeaders = () => {
 };
 
 const getDefaultOptions = () => ({
-  mode: 'cors',
   headers: getHeaders()
 });
 
-export const post = async (url, data = {}) => {
+const request = async (url, method, data ={}) => {
   const response = await fetch(BASE_URL + '/' + url, {
     ...getDefaultOptions(),
-    method: 'POST',
+    method,
     body: JSON.stringify(data)
   });
 
@@ -29,7 +28,13 @@ export const post = async (url, data = {}) => {
   if (contentType !== null && contentType.includes('application/json')) {
     return response.json();
   }
-};
+}
+
+export const post = (url, data = {}) =>
+  request(url, 'POST', data);
+
+export const put = async (url, data = {}) =>
+  request(url, 'PUT', data);
 
 export const get = async url => {
   const response = await fetch(BASE_URL + '/' + url, getDefaultOptions());
