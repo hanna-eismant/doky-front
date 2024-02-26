@@ -18,7 +18,7 @@ job("Tests for main branch") {
 
     host("Schedule Azure DEV Deployment") {
         kotlinScript { api ->
-            val deployVersion = "Aardvark-v0.1." + api.executionNumber()
+            val deployVersion = "Aardvark-v0.1." + api.executionNumber() + "f"
             api.space().projects.automation.deployments.schedule(
                 project = api.projectIdentifier(),
                 targetIdentifier = TargetIdentifier.Key(deploymentKey),
