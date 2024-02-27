@@ -1,6 +1,7 @@
 const path = require('path');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const autoprefixer = require('autoprefixer')
 
 module.exports = (env, argv) => {
@@ -11,12 +12,18 @@ module.exports = (env, argv) => {
       ? 'source-map'
       : false,
     plugins:  [
-      new HtmlWebpackPlugin({ template: 'static/index.html' })
+      new HtmlWebpackPlugin({ template: 'src/index.html' }),
+      new CopyWebpackPlugin({
+        patterns: [ { from: 'static'} ]
+      })
     ],
     entry: './src/index.js',
     output: {
       path: path.resolve(__dirname, 'dist'),
       filename: 'bundle.js'
+    },
+    devServer: {
+      historyApiFallback: true,
     },
     resolve: {
       alias: {
@@ -34,7 +41,11 @@ module.exports = (env, argv) => {
           }
         },
         {
-          test: /\.(scss)$/,
+          test: /\.woff2?$/,
+          type: "asset/resource",
+        },
+        {
+          test: /\.(scss|css)$/,
           use: [
             {
               // Adds CSS to the DOM by injecting a `<style>` tag

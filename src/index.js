@@ -1,7 +1,7 @@
 import React, {StrictMode} from 'react';
 import {createRoot} from 'react-dom/client';
 
-import 'bootstrap/scss/bootstrap.scss'
+import './index.scss';
 
 import App from './App.jsx';
 
