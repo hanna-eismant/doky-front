@@ -24,6 +24,7 @@ module.exports = (env, argv) => {
     },
     devServer: {
       historyApiFallback: true,
+      port: 10001
     },
     resolve: {
       alias: {
@@ -39,10 +40,6 @@ module.exports = (env, argv) => {
           options: {
             presets: [ [ "@babel/preset-react", { runtime: "automatic" } ]] 
           }
-        },
-        {
-          test: /\.woff2?$/,
-          type: "asset/resource",
         },
         {
           test: /\.(scss|css)$/,
