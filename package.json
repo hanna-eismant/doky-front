@@ -6,8 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack serve --mode=development",
-    "start:local": "npm start -- --be-env local",
-    "start:dev": "npm start -- --be-env dev",
+    "start:local": "npm start -- --env be-env=local",
+    "start:dev": "npm start -- --env be-env=dev",
     "build": "webpack --mode=production",
     "serve": "serve dist -s"
   },
