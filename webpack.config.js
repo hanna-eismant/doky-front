@@ -5,7 +5,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const autoprefixer = require('autoprefixer')
 
 module.exports = (env, argv) => {
-  const beEnv = argv['be-env'] || 'dev';
+  const beEnv = env['be-env'] || 'dev';
   return {
     mode: argv.mode,
     devtool: argv.mode === 'development'
