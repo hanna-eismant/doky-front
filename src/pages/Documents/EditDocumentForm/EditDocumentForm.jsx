@@ -26,6 +26,12 @@ export default ({ document }) => {
       <HorizontalFormInput id="name" label="Name" type="text" value={data.name} onChange={name.setValue}/>
       <HorizontalFormText id="description" label="Description" value={data.description}
                           onChange={description.setValue}/>
+      <div className="text-secondary">
+        <em>Created by: {document.createdBy} at {document.createdDate}</em>
+      </div>
+      <div className="text-secondary">
+        <em>Modified by: {document.modifiedBy} at {document.modifiedDate}</em>
+      </div>
       <div className="d-flex justify-content-between py-2">
         <input type="submit" value="Save" disabled={isLoading} className="btn btn-primary mb-3 float-right"/>
       </div>
