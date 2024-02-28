@@ -1,8 +1,7 @@
-import 'bootstrap/dist/css/bootstrap.css';
-import 'bootstrap/js/index.esm.js';
-import 'bootstrap-icons/font/bootstrap-icons.css';
 import React, {StrictMode} from 'react';
 import {createRoot} from 'react-dom/client';
+
+import './index.scss';
 
 import App from './App.jsx';
 
