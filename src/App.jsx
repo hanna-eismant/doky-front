@@ -5,6 +5,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import BasePage from './components/BasePage.jsx';
 import MainRoutes from './pages/MainRoutes';
+import UserProfile from "./pages/UserProfile";
 
 export default () => (
   <BrowserRouter>
@@ -12,6 +13,7 @@ export default () => (
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/profile" element={<UserProfile />} />
         <Route path="*" element={<MainRoutes />} />
       </Routes>
     </BasePage>
