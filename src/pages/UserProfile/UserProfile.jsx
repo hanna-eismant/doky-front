@@ -14,7 +14,7 @@ export default () => {
         </h1>
       </div>
       <div>
-        {!isLoading && <EditUserProfileForm document={data}/>}
+        {!isLoading && <EditUserProfileForm user={data}/>}
       </div>
     </>
   )
