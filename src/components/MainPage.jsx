@@ -13,6 +13,10 @@ const menuItems = [
     // TODO
     path: '/documents',
     hasSubRoutes: true
+  },
+  {
+    name: 'User Profile',
+    path: '/profile'
   }
 ];
 
@@ -44,7 +48,7 @@ export default ({children}) => {
                       name={name}
                       path={path}
                       key={name}
-                      isActive={isActive} 
+                      isActive={isActive}
                     />
                   );
                 })}
