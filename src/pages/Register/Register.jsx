@@ -25,7 +25,7 @@ export default () => {
       setGlobalError({message: response.error.message});
       setFieldsError({fields: response.fields})
     } else {
-      navigate('/login');
+      navigate('/');
     }
   });
 

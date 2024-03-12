@@ -8,6 +8,9 @@ export default () => {
   const fetch = useCallback(async (formData) => {
     setIsLoading(true);
     const data = await post('register', formData);
+    if (data.token) {
+      localStorage.setItem('jwt', data.token);
+    }
     setData(data);
     setIsLoading(false);
     return data;
