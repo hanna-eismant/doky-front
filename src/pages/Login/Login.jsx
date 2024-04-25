@@ -3,8 +3,8 @@ import {Link, useNavigate} from 'react-router-dom';
 
 import {FormInput} from '../../components';
 import useFormData from '../../hooks/useFormData.js';
-import useLoginQuery from './useLoginQuery.js';
 import AlertError from "../../components/AlertError.jsx";
+import { useLogin } from './useLogin.js';
 
 const initialFormData = {
   uid: '',
@@ -15,7 +15,7 @@ export default () => {
   const [globalError, setGlobalError] = useState({message: ''});
   const [fieldsError, setFieldsError] = useState({})
   const {data, fields: {uid, password}} = useFormData(initialFormData);
-  const [login] = useLoginQuery();
+  const login = useLogin();
   const navigate = useNavigate();
 
   const onSubmit = useCallback(async event => {
