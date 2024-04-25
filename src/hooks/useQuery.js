@@ -7,7 +7,7 @@ export const useQuery = request => {
   useEffect(() => {
     request().then(data => {
       setData(data);
-      setIsLoading()
+      setIsLoading(false);
     });
   }, []);
 
