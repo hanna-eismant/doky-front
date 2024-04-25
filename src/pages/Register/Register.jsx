@@ -2,7 +2,7 @@ import React, {useCallback, useState} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
 
 import useFormData from '../../hooks/useFormData.js';
-import useRegisterQuery from './useRegisterQuery.js';
+import { useRegister } from './useRegisterQuery.js';
 import {FormInput} from "../../components";
 import AlertError from "../../components/AlertError.jsx";
 
@@ -15,7 +15,7 @@ export default () => {
   const [globalError, setGlobalError] = useState({message: ''});
   const [fieldsError, setFieldsError] = useState({})
   const {data, fields: {uid, password}} = useFormData(initialFormData);
-  const [register] = useRegisterQuery();
+  const register = useRegister();
   const navigate = useNavigate();
 
   const onSubmit = useCallback(async event => {
