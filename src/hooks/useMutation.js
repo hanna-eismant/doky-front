@@ -3,7 +3,7 @@ import { useState, useCallback } from 'react';
 import { noop } from '../utils';
 
 export const useMutation = (request, onDone = noop) => {
-  const [ isLoading, setIsLoading ] = useState(true);
+  const [ isLoading, setIsLoading ] = useState(false);
   const [ data, setData ] = useState({});
 
   const fetch = useCallback(async payload => {
