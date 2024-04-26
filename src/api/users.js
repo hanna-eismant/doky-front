@@ -1,11 +1,13 @@
 import { get, post, put } from './request';
 
-export const getCurrentUser = () => get('users/current');
+const RESOURCE_NAME = 'users';
+
+export const getCurrentUser = () => get(`${RESOURCE_NAME}/current`);
+
+export const updateCurrentUser = payload =>
+  put(`${RESOURCE_NAME}/current`, payload);
 
 export const login = (uid, password) =>
   post('login', { uid, password });
 
 export const register = payload => post('register', payload);
-
-export const updateCurrentUser = payload =>
-  put('users/current', payload); 

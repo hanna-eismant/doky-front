@@ -1,10 +1,10 @@
 import React, {useCallback, useMemo} from 'react';
 import {useNavigate} from 'react-router-dom';
 import { useQuery } from '../../hooks/useQuery';
-import { fetchDocuments } from '../../api/documents';
+import { getDocuments } from '../../api/documents';
 
 export default () => {
-  const { isLoading, data } = useQuery(fetchDocuments);
+  const { isLoading, data } = useQuery(getDocuments);
 
   const navigate = useNavigate();
 

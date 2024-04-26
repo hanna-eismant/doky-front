@@ -1,9 +1,11 @@
 import { get, post, put } from './request';
 
-export const fetchDocuments = () => get('documents');
+const RESOURCE_NAME = 'documents';
 
-export const fetchDocument = id => get(`documents/${id}`);
+export const getDocuments = () => get(RESOURCE_NAME);
 
-export const createDocument = payload => post('documents', payload);
+export const getDocument = id => get(`${RESOURCE_NAME}/${id}`);
 
-export const updateDocument = payload => put(`documents/${payload.id}`, payload);
+export const createDocument = payload => post(RESOURCE_NAME, payload);
+
+export const updateDocument = payload => put(`${RESOURCE_NAME}/${payload.id}`, payload);
