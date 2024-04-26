@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useState} from 'react';
 import useFormData from "../../../hooks/useFormData";
 import HorizontalFormInput from "../../../components/formComponents/HorizontalFormInput.jsx";
 import HorizontalFormText from "../../../components/formComponents/HorizontalFormText.jsx";
@@ -7,6 +7,8 @@ import { useMutation } from '../../../hooks/useMutation.js';
 import { updateDocument } from '../../../api/documents.js';
 
 export default ({ document }) => {
+  const [globalError, setGlobalError] = useState({message: ''});
+  const [fieldsError, setFieldsError] = useState({})
   const { data, fields: { name, description } } = useFormData(document);
   const [ editDocument, { isLoading } ] = useMutation(updateDocument);
   const addToast = useAddToast();
@@ -16,15 +18,22 @@ export default ({ document }) => {
 
     const response = await editDocument(data);
     if (response?.error) {
-      alert(response.error.message);
+      addToast(response.error.message)
+      setGlobalError({message: response.error.message});
+      setFieldsError({fields: response.fields})
     } else {
       addToast('Saved')
     }
   });
 
+  const useFieldError = (fieldName) => {
+    return fieldsError?.fields?.find(({field}) => field === fieldName)
+  }
+
   return (
     <form onSubmit={onSubmit} className="mt-3">
-      <HorizontalFormInput id="name" label="Name" type="text" value={data.name} onChange={name.setValue}/>
+      <HorizontalFormInput id="name" label="Name" type="text" value={data.name} onChange={name.setValue}
+                           validationError={useFieldError('name')}/>
       <HorizontalFormText id="description" label="Description" value={data.description}
                           onChange={description.setValue}/>
       <div className="text-secondary">
