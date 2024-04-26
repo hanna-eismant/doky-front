@@ -1,16 +1,15 @@
 import { useEffect, useState } from "react";
-import { get } from "../../api/request";
 
-export default () => {
+export const useQuery = request => {
   const [ isLoading, setIsLoading ] = useState(true);
   const [ data, setData ] = useState({});
 
   useEffect(() => {
-    get('users/current').then(userInfo => {
-      setData(userInfo);
+    request().then(data => {
+      setData(data);
       setIsLoading(false);
-    })
+    });
   }, []);
 
   return { data, isLoading };
-}
+};

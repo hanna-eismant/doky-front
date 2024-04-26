@@ -2,11 +2,12 @@ import {useCallback} from "react";
 import HorizontalFormInput from "../../../components/formComponents/HorizontalFormInput.jsx";
 import useFormData from "../../../hooks/useFormData";
 import {useAddToast} from "../../../components/Toasts";
-import useEditUserProfileQuery from "./useEditUserProfileQuery";
+import { useMutation } from "../../../hooks/useMutation.js";
+import { updateCurrentUser } from "../../../api/users.js";
 
 export default ({user}) => {
   const { data, fields: { uid, name } } = useFormData(user);
-  const [ editUserProfile, { isLoading } ] = useEditUserProfileQuery();
+  const [ editUserProfile, { isLoading } ] = useMutation(updateCurrentUser);
   const addToast = useAddToast();
 
   const onSubmit = useCallback(async event => {

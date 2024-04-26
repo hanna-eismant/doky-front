@@ -1,8 +1,9 @@
 import React, {useCallback} from 'react';
 import useFormData from "../../../hooks/useFormData";
-import useCreateDocumentQuery from "./useCreateDocumentQuery.js";
 import HorizontalFormInput from "../../../components/formComponents/HorizontalFormInput.jsx";
 import HorizontalFormText from "../../../components/formComponents/HorizontalFormText.jsx";
+import { useMutation } from '../../../hooks/useMutation.js';
+import { createDocument } from '../../../api/documents.js';
 
 const initialFormData = {
   name: '',
@@ -11,12 +12,12 @@ const initialFormData = {
 
 export default ({onCreated}) => {
   const {data, fields: {name, description}} = useFormData(initialFormData);
-  const createDocument = useCreateDocumentQuery();
+  const [ documentMutation ] = useMutation(createDocument);
 
   const onSubmit = useCallback(async event => {
     event.preventDefault();
 
-    const response = await createDocument(data);
+    const response = await documentMutation(data);
     if (response?.error) {
       alert(response.error.message);
     } else {

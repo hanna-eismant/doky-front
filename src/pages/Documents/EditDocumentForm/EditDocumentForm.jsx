@@ -1,13 +1,14 @@
 import React, {useCallback} from 'react';
 import useFormData from "../../../hooks/useFormData";
-import useEditDocumentQuery from "./useEditDocumentQuery.js";
 import HorizontalFormInput from "../../../components/formComponents/HorizontalFormInput.jsx";
 import HorizontalFormText from "../../../components/formComponents/HorizontalFormText.jsx";
 import { useAddToast } from '../../../components/Toasts';
+import { useMutation } from '../../../hooks/useMutation.js';
+import { updateDocument } from '../../../api/documents.js';
 
 export default ({ document }) => {
   const { data, fields: { name, description } } = useFormData(document);
-  const [ editDocument, { isLoading } ] = useEditDocumentQuery();
+  const [ editDocument, { isLoading } ] = useMutation(updateDocument);
   const addToast = useAddToast();
 
   const onSubmit = useCallback(async event => {

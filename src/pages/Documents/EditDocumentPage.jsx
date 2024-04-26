@@ -1,7 +1,8 @@
-import React, {useCallback, useEffect} from 'react';
+import React, {useCallback} from 'react';
 import EditDocumentForm from './EditDocumentForm/EditDocumentForm.jsx';
 import {useNavigate, useParams} from 'react-router-dom';
-import useDocumentQuery from './useDocumentQuery.js';
+import { useQuery } from '../../hooks/useQuery.js';
+import { getDocument } from '../../api/documents.js';
 
 export default () => {
   const navigate = useNavigate();
@@ -11,11 +12,9 @@ export default () => {
     navigate('/documents');
   }, [navigate]);
 
-  const [ fetchDocument, { data, isLoading } ] = useDocumentQuery();
+  const getCurrentDocument = useCallback(() => getDocument(params.id), [ params.id ]);
 
-  useEffect(() => {
-    fetchDocument(params.id);
-  }, [ fetchDocument, params.id ]);
+  const { data, isLoading } = useQuery(getCurrentDocument);
 
   return (
     <>

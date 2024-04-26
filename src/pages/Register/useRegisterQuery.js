@@ -1,20 +1,15 @@
-import { useCallback, useState } from "react";
-import { post } from "../../api/request";
+import { useMutation } from "../../hooks/useMutation";
+import { register } from "../../api/users";
 
-export default () => {
-  const [ isLoading, setIsLoading ] = useState(true);
-  const [ data, setData ] = useState({});
-
-  const fetch = useCallback(async (formData) => {
-    setIsLoading(true);
-    const data = await post('register', formData);
-    if (data.token) {
-      localStorage.setItem('jwt', data.token);
+export const useRegister = () => {
+  const [ registerMutation ] = useMutation(
+    creds => register(creds),
+    data => {
+      if (data.token) {
+        localStorage.setItem('jwt', data.token);
+      }
     }
-    setData(data);
-    setIsLoading(false);
-    return data;
-  }, [setIsLoading, setData]);
+  );
 
-  return [ fetch, { data, isLoading } ];
-}
+  return registerMutation;
+};

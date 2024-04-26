@@ -1,9 +1,10 @@
 import React from 'react';
-import useUserInfoQuery from "../Home/useUserInfoQuery";
 import EditUserProfileForm from "./EditUserProfileForm";
+import { useQuery } from '../../hooks/useQuery';
+import { getCurrentUser } from '../../api/users';
 
 export default () => {
-  const {isLoading, data} = useUserInfoQuery();
+  const {isLoading, data} = useQuery(getCurrentUser);
 
   return (
     <>
