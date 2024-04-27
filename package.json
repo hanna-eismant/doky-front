@@ -8,6 +8,8 @@
     "start": "webpack serve --mode=development",
     "start:local": "npm start -- --env be-env=local",
     "start:dev": "npm start -- --env be-env=dev",
+    "lint": "eslint src",
+    "lint:fix": "npm run lint -- --fix",
     "build": "webpack --mode=production",
     "serve": "serve dist -s"
   },
@@ -27,6 +29,9 @@
     "babel-loader": "^9.1.3",
     "copy-webpack-plugin": "^12.0.2",
     "css-loader": "^6.10.0",
+    "eslint": "^8.57.0",
+    "eslint-plugin-react": "^7.34.1",
+    "eslint-plugin-react-hooks": "^4.6.2",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.6.0",
     "mini-css-extract-plugin": "^2.8.1",

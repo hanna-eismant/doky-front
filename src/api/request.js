@@ -1,4 +1,4 @@
-import { BASE_URL } from "config";
+import { BASE_URL } from 'config';
 
 const HEADERS = {
   'Content-Type': 'application/json'
@@ -28,7 +28,7 @@ const request = async (url, method, data ={}) => {
   if (contentType !== null && contentType.includes('application/json')) {
     return response.json();
   }
-}
+};
 
 export const post = (url, data = {}) =>
   request(url, 'POST', data);

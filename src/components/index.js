@@ -1,1 +1,1 @@
-export {default as FormInput} from "./formComponents/FormInput.jsx";
+export {default as FormInput} from './formComponents/FormInput.jsx';

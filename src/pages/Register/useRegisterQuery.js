@@ -1,5 +1,5 @@
-import { useMutation } from "../../hooks/useMutation";
-import { register } from "../../api/users";
+import { useMutation } from '../../hooks/useMutation';
+import { register } from '../../api/users';
 
 export const useRegister = () => {
   const [ registerMutation ] = useMutation(

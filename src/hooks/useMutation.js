@@ -13,7 +13,7 @@ export const useMutation = (request, onDone = noop) => {
     setData(data);
     setIsLoading(false);
     return data;
-  }, [setIsLoading, setData]);
+  }, [request, onDone]);
 
   return [ fetch, { data, isLoading } ];
 };
