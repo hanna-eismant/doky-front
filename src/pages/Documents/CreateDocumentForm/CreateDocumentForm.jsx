@@ -12,7 +12,6 @@ const initialFormData = {
 };
 
 export default ({onCreated}) => {
-  const [globalError, setGlobalError] = useState({message: ''});
   const [fieldsError, setFieldsError] = useState({})
   const {data, fields: {name, description}} = useFormData(initialFormData);
   const [ documentMutation ] = useMutation(createDocument);
@@ -24,7 +23,6 @@ export default ({onCreated}) => {
     const response = await documentMutation(data);
     if (response?.error) {
       addToast(response.error.message)
-      setGlobalError({message: response.error.message});
       setFieldsError({fields: response.fields})
     } else {
       addToast('Created')

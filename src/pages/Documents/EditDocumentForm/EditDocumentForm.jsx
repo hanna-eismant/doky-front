@@ -7,7 +7,6 @@ import { useMutation } from '../../../hooks/useMutation.js';
 import { updateDocument } from '../../../api/documents.js';
 
 export default ({ document }) => {
-  const [globalError, setGlobalError] = useState({message: ''});
   const [fieldsError, setFieldsError] = useState({})
   const { data, fields: { name, description } } = useFormData(document);
   const [ editDocument, { isLoading } ] = useMutation(updateDocument);
@@ -19,7 +18,6 @@ export default ({ document }) => {
     const response = await editDocument(data);
     if (response?.error) {
       addToast(response.error.message)
-      setGlobalError({message: response.error.message});
       setFieldsError({fields: response.fields})
     } else {
       addToast('Saved')
