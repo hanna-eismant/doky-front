@@ -12,3 +12,5 @@ LTS version of [Node.js](https://nodejs.org) should be installed. nvm is recomme
 * `npm run start:dev` - run client with api pointing to **dev** (remote) back-end.
 * `npm run build` - assembling prod version. All assets will be saved in *dist* folder 
 * `npm run serve` - run node server for serving static from *dist* folder. Useful for checking dev configured builds locally
+* `npm run lint` - run eslint check
+* `npm run lint:fix` - run eslint check and fix lint issues automatically
