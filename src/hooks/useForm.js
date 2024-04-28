@@ -9,7 +9,7 @@ export const useForm = (initialData, mutation, onSuccess) => {
     event.preventDefault();
     setIsSubmitting(true);
     const response = await mutation(form.data);
-    if (response.error) {
+    if (response?.error) {
       form.setGlobalError(response.error.message);
       form.setFieldsErrors(response.fields);
     } else {

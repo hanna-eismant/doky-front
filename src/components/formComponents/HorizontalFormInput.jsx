@@ -2,14 +2,16 @@ import React, {useCallback} from 'react';
 import {noop} from '../../utils';
 import classNames from 'classnames';
 
-const HorizontalFormInput = ({label, id, type, value = '', disabled = false, onChange = noop, validationError}) => {
+const HorizontalFormInput = ({label, id, type, value = '', disabled = false, onChange = noop, errors }) => {
   const handleOnChange = useCallback(event => {
     event.preventDefault();
     onChange(event.target.value);
   }, [onChange]);
 
+  const hasErrors = Boolean(errors && errors.length > 0);
+
   const inputClassesList = classNames('form-control', {
-    'is-invalid': validationError
+    'is-invalid': hasErrors
   });
 
   return (
@@ -18,9 +20,9 @@ const HorizontalFormInput = ({label, id, type, value = '', disabled = false, onC
       <div className="col-sm-10 has-validation">
         <input className={inputClassesList} id={id} type={type} value={value} disabled={disabled} onChange={handleOnChange}
           aria-describedby={'validation' + id + 'Feedback'}/>
-        {validationError ?
+        {hasErrors ?
           <div id={'validation' + id + 'Feedback'} className="invalid-feedback">
-            {validationError.messages.map((message) => (<div key={message}>{message}</div>))}
+            {errors.map((message) => (<div key={message}>{message}</div>))}
           </div>
           : null}
       </div>
