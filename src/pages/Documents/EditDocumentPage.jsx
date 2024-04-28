@@ -7,7 +7,7 @@ import { getDocument } from '../../api/documents.js';
 export default () => {
   const navigate = useNavigate();
   const params = useParams();
- 
+
   const goBack = useCallback(() => {
     navigate('/documents');
   }, [navigate]);

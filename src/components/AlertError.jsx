@@ -11,6 +11,6 @@ export default ({message}) => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 

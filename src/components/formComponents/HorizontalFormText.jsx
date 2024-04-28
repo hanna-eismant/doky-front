@@ -15,4 +15,4 @@ export default ({label, id, type, value = '', onChange = noop}) => {
       </div>
     </div>
   );
-}
+};
