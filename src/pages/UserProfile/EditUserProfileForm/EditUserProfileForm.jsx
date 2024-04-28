@@ -1,9 +1,9 @@
-import {useCallback} from "react";
-import HorizontalFormInput from "../../../components/formComponents/HorizontalFormInput.jsx";
-import useFormData from "../../../hooks/useFormData";
-import {useAddToast} from "../../../components/Toasts";
-import { useMutation } from "../../../hooks/useMutation.js";
-import { updateCurrentUser } from "../../../api/users.js";
+import {useCallback} from 'react';
+import HorizontalFormInput from '../../../components/formComponents/HorizontalFormInput.jsx';
+import useFormData from '../../../hooks/useFormData';
+import {useAddToast} from '../../../components/Toasts';
+import { useMutation } from '../../../hooks/useMutation.js';
+import { updateCurrentUser } from '../../../api/users.js';
 
 export default ({user}) => {
   const { data, fields: { uid, name } } = useFormData(user);
@@ -17,7 +17,7 @@ export default ({user}) => {
     if (response?.error) {
       alert(response.error.message);
     } else {
-      addToast('Saved')
+      addToast('Saved');
     }
   });
 
@@ -29,5 +29,5 @@ export default ({user}) => {
         <input type="submit" value="Save" disabled={isLoading} className="btn btn-primary mb-3 float-right"/>
       </div>
     </form>
-  )
-}
+  );
+};

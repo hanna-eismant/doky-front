@@ -3,8 +3,8 @@ import {Link, useNavigate} from 'react-router-dom';
 
 import useFormData from '../../hooks/useFormData.js';
 import { useRegister } from './useRegisterQuery.js';
-import {FormInput} from "../../components";
-import AlertError from "../../components/AlertError.jsx";
+import {FormInput} from '../../components';
+import AlertError from '../../components/AlertError.jsx';
 
 const initialFormData = {
   uid: '',
@@ -13,7 +13,7 @@ const initialFormData = {
 
 export default () => {
   const [globalError, setGlobalError] = useState({message: ''});
-  const [fieldsError, setFieldsError] = useState({})
+  const [fieldsError, setFieldsError] = useState({});
   const {data, fields: {uid, password}} = useFormData(initialFormData);
   const register = useRegister();
   const navigate = useNavigate();
@@ -23,15 +23,15 @@ export default () => {
     const response = await register(data);
     if (response?.error) {
       setGlobalError({message: response.error.message});
-      setFieldsError({fields: response.fields})
+      setFieldsError({fields: response.fields});
     } else {
       navigate('/');
     }
   });
 
   const useFieldError = (fieldName) => {
-    return fieldsError?.fields?.find(({field}) => field === fieldName)
-  }
+    return fieldsError?.fields?.find(({field}) => field === fieldName);
+  };
 
   return (
     <>
@@ -40,9 +40,9 @@ export default () => {
         <form onSubmit={onSubmit} className="col-3">
           <img className="mb-3 mt-3 img-fluid" src="logo-color-bg.svg"/>
           <FormInput id="uid" label="Email" type="text" value={data.uid} onChange={uid.setValue}
-                     validationError={useFieldError('uid')}/>
+            validationError={useFieldError('uid')}/>
           <FormInput id="password" label="Password" type="password" value={data.password} onChange={password.setValue}
-                     validationError={useFieldError('password')}/>
+            validationError={useFieldError('password')}/>
           <div className="mt-3 row">
             <input type="submit" value="Register" className="btn btn-primary mb-3"/>
             <Link to="/login">Login</Link>
@@ -50,5 +50,5 @@ export default () => {
         </form>
       </div>
     </>
-  )
-}
+  );
+};

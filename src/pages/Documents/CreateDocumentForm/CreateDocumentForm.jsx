@@ -1,7 +1,7 @@
 import React, {useCallback, useState} from 'react';
-import useFormData from "../../../hooks/useFormData";
-import HorizontalFormInput from "../../../components/formComponents/HorizontalFormInput.jsx";
-import HorizontalFormText from "../../../components/formComponents/HorizontalFormText.jsx";
+import useFormData from '../../../hooks/useFormData';
+import HorizontalFormInput from '../../../components/formComponents/HorizontalFormInput.jsx';
+import HorizontalFormText from '../../../components/formComponents/HorizontalFormText.jsx';
 import { useAddToast } from '../../../components/Toasts';
 import { useMutation } from '../../../hooks/useMutation.js';
 import { createDocument } from '../../../api/documents.js';
@@ -12,7 +12,7 @@ const initialFormData = {
 };
 
 export default ({onCreated}) => {
-  const [fieldsError, setFieldsError] = useState({})
+  const [fieldsError, setFieldsError] = useState({});
   const {data, fields: {name, description}} = useFormData(initialFormData);
   const [ documentMutation ] = useMutation(createDocument);
   const addToast = useAddToast();
@@ -22,24 +22,24 @@ export default ({onCreated}) => {
 
     const response = await documentMutation(data);
     if (response?.error) {
-      addToast(response.error.message)
-      setFieldsError({fields: response.fields})
+      addToast(response.error.message);
+      setFieldsError({fields: response.fields});
     } else {
-      addToast('Created')
+      addToast('Created');
       onCreated();
     }
   });
 
   const useFieldError = (fieldName) => {
-    return fieldsError?.fields?.find(({field}) => field === fieldName)
-  }
+    return fieldsError?.fields?.find(({field}) => field === fieldName);
+  };
 
   return (
     <form onSubmit={onSubmit} className="mt-3">
       <HorizontalFormInput id="name" label="Name" type="text" value={data.name} onChange={name.setValue}
-                           validationError={useFieldError('name')}/>
+        validationError={useFieldError('name')}/>
       <HorizontalFormText id="description" label="Description" value={data.description}
-                          onChange={description.setValue}/>
+        onChange={description.setValue}/>
       <div className="d-flex justify-content-between py-2">
         <input type="submit" value="Create" className="btn btn-primary mb-3 float-right"/>
       </div>
