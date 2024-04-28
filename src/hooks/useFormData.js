@@ -16,5 +16,5 @@ export default (formData = {}) => {
       }
     }), {}),
     data
-  }), [data])
+  }), [data, formData, setValue]);
 };

@@ -1,7 +1,7 @@
 
-import React, { useState, createContext } from "react";
-import { Toasts } from "./Toasts.jsx";
- 
+import React, { useState, createContext } from 'react';
+import { Toasts } from './Toasts.jsx';
+
 export const ToastsContext = createContext();
 
 export const ToastContextProvider = ({ children }) => {

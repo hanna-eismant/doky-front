@@ -1,3 +1,3 @@
-import EditUserProfileForm from "./EditUserProfileForm.jsx";
+import EditUserProfileForm from './EditUserProfileForm.jsx';
 
 export default EditUserProfileForm;

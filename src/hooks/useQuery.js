@@ -1,6 +1,6 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from 'react';
 
-/* 
+/*
  * Decorator function that ensures a request does not called multiple times concurrently.
  * Instead, if the request is already in progress (a promise is pending),
  * it returns the same promise to any other calls
@@ -28,7 +28,7 @@ export const useQuery = request => {
   const [ isLoading, setIsLoading ] = useState(true);
   const [ data, setData ] = useState({});
 
-  /* 
+  /*
    * Usage of useCallback might looks more obvious
    * `useCallback(dedupeRequest(request), [request])`
    * but leads to multiple calls of dedupeRequest decorator.

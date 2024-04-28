@@ -1,5 +1,5 @@
-import { useContext, useEffect } from "react";
-import { ToastsContext } from "./ToastsContext.js";
+import { useContext, useEffect } from 'react';
+import { ToastsContext } from './ToastsContext.js';
 
 export const useToastsContext = () => useContext(ToastsContext);
 
@@ -14,9 +14,9 @@ export const useAddToast = () => {
 
       return () => clearTimeout(id);
     }
-  }, [toasts]);
+  }, [setToasts, toasts]);
 
   return toast => {
     setToasts([ ...toasts, toast ]);
-  }
+  };
 };
