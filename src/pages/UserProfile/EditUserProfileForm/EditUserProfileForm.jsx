@@ -1,6 +1,6 @@
 import {useCallback} from 'react';
 import HorizontalFormInput from '../../../components/formComponents/HorizontalFormInput.jsx';
-import useFormData from '../../../hooks/useFormData';
+import { useFormData } from '../../../hooks/useFormData';
 import {useAddToast} from '../../../components/Toasts';
 import { useMutation } from '../../../hooks/useMutation.js';
 import { updateCurrentUser } from '../../../api/users.js';

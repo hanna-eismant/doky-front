@@ -1,5 +1,5 @@
 import React, {useCallback, useState} from 'react';
-import useFormData from '../../../hooks/useFormData';
+import { useFormData } from '../../../hooks/useFormData';
 import HorizontalFormInput from '../../../components/formComponents/HorizontalFormInput.jsx';
 import HorizontalFormText from '../../../components/formComponents/HorizontalFormText.jsx';
 import { useAddToast } from '../../../components/Toasts';

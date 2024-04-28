@@ -1,7 +1,7 @@
 import React, {useCallback, useState} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
 
-import useFormData from '../../hooks/useFormData.js';
+import { useFormData } from '../../hooks/useFormData.js';
 import { useRegister } from './useRegisterQuery.js';
 import {FormInput} from '../../components';
 import AlertError from '../../components/AlertError.jsx';
