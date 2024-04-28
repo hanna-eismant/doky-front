@@ -1,5 +1,5 @@
-import React, {useCallback, useState} from 'react';
-import { useFormData } from '../../../hooks/useFormData';
+import React from 'react';
+import { useForm } from '../../../hooks/useForm.js';
 import HorizontalFormInput from '../../../components/formComponents/HorizontalFormInput.jsx';
 import HorizontalFormText from '../../../components/formComponents/HorizontalFormText.jsx';
 import { useAddToast } from '../../../components/Toasts';
@@ -12,32 +12,22 @@ const initialFormData = {
 };
 
 const CreateDocumentForm = ({onCreated}) => {
-  const [fieldsError, setFieldsError] = useState({});
-  const {data, fields: {name, description}} = useFormData(initialFormData);
   const [ documentMutation ] = useMutation(createDocument);
   const addToast = useAddToast();
 
-  const onSubmit = useCallback(async event => {
-    event.preventDefault();
-
-    const response = await documentMutation(data);
-    if (response?.error) {
-      addToast(response.error.message);
-      setFieldsError({fields: response.fields});
-    } else {
+  const {data, fields: {name, description}, handleSubmit } = useForm(
+    initialFormData,
+    documentMutation,
+    () => {
       addToast('Created');
       onCreated();
     }
-  }, [addToast, data, documentMutation, onCreated]);
-
-  const useFieldError = (fieldName) => {
-    return fieldsError?.fields?.find(({field}) => field === fieldName);
-  };
+  );
 
   return (
-    <form onSubmit={onSubmit} className="mt-3">
+    <form onSubmit={handleSubmit} className="mt-3">
       <HorizontalFormInput id="name" label="Name" type="text" value={data.name} onChange={name.setValue}
-        validationError={useFieldError('name')}/>
+        errors={name.errors} />
       <HorizontalFormText id="description" label="Description" value={data.description}
         onChange={description.setValue}/>
       <div className="d-flex justify-content-between py-2">
