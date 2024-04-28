@@ -1,7 +1,7 @@
 import React, {useCallback} from 'react';
 import {noop} from '../../utils';
 
-export default ({label, id, type, value = '', onChange = noop}) => {
+const HorizontalFormText = ({label, id, value = '', onChange = noop}) => {
   const handleOnChange = useCallback(event => {
     event.preventDefault();
     onChange(event.target.value);
@@ -15,4 +15,6 @@ export default ({label, id, type, value = '', onChange = noop}) => {
       </div>
     </div>
   );
-}
+};
+
+export default HorizontalFormText;

@@ -6,7 +6,7 @@ import Register from './pages/Register';
 import BasePage from './components/BasePage.jsx';
 import MainRoutes from './pages/MainRoutes';
 
-export default () => (
+const App = () => (
   <BrowserRouter>
     <BasePage>
       <Routes>
@@ -17,3 +17,5 @@ export default () => (
     </BasePage>
   </BrowserRouter>
 );
+
+export default App;

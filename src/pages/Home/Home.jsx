@@ -1,9 +1,9 @@
 import React, {useCallback} from 'react';
-import {Link, useNavigate} from "react-router-dom";
+import {Link, useNavigate} from 'react-router-dom';
 import { useQuery } from '../../hooks/useQuery';
 import { getCurrentUser } from '../../api/users';
 
-export default () => {
+const Home = () => {
   const {isLoading, data} = useQuery(getCurrentUser);
 
   const navigate = useNavigate();
@@ -30,3 +30,5 @@ export default () => {
     </>
   );
 };
+
+export default Home;

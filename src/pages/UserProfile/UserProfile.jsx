@@ -1,9 +1,9 @@
 import React from 'react';
-import EditUserProfileForm from "./EditUserProfileForm";
+import EditUserProfileForm from './EditUserProfileForm';
 import { useQuery } from '../../hooks/useQuery';
 import { getCurrentUser } from '../../api/users';
 
-export default () => {
+const UserProfile = () => {
   const {isLoading, data} = useQuery(getCurrentUser);
 
   return (
@@ -18,5 +18,7 @@ export default () => {
         {!isLoading && <EditUserProfileForm user={data}/>}
       </div>
     </>
-  )
-}
+  );
+};
+
+export default UserProfile;

@@ -8,7 +8,7 @@
     "start": "webpack serve --mode=development",
     "start:local": "npm start -- --env be-env=local",
     "start:dev": "npm start -- --env be-env=dev",
-    "lint": "eslint src",
+    "lint": "eslint src --ext .js,.jsx",
     "lint:fix": "npm run lint -- --fix",
     "build": "webpack --mode=production",
     "serve": "serve dist -s",
