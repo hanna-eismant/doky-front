@@ -32,8 +32,9 @@ const MenuItem = ({ name, path, isActive }) => {
   );
 };
 
-export default ({children}) => {
+const MainPage = () => {
   const location  = useLocation();
+
   return (
     <div className="container-fluid">
       <ToastContextProvider>
@@ -65,3 +66,5 @@ export default ({children}) => {
     </div>
   );
 };
+
+export default MainPage;

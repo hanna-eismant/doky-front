@@ -11,7 +11,7 @@ const initialFormData = {
   description: ''
 };
 
-export default ({onCreated}) => {
+const CreateDocumentForm = ({onCreated}) => {
   const [fieldsError, setFieldsError] = useState({});
   const {data, fields: {name, description}} = useFormData(initialFormData);
   const [ documentMutation ] = useMutation(createDocument);
@@ -28,7 +28,7 @@ export default ({onCreated}) => {
       addToast('Created');
       onCreated();
     }
-  });
+  }, [addToast, data, documentMutation, onCreated]);
 
   const useFieldError = (fieldName) => {
     return fieldsError?.fields?.find(({field}) => field === fieldName);
@@ -46,3 +46,5 @@ export default ({onCreated}) => {
     </form>
   );
 };
+
+export default CreateDocumentForm;

@@ -3,7 +3,7 @@ import EditUserProfileForm from './EditUserProfileForm';
 import { useQuery } from '../../hooks/useQuery';
 import { getCurrentUser } from '../../api/users';
 
-export default () => {
+const UserProfile = () => {
   const {isLoading, data} = useQuery(getCurrentUser);
 
   return (
@@ -20,3 +20,5 @@ export default () => {
     </>
   );
 };
+
+export default UserProfile;

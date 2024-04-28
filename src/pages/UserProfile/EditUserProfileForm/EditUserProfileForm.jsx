@@ -5,7 +5,7 @@ import {useAddToast} from '../../../components/Toasts';
 import { useMutation } from '../../../hooks/useMutation.js';
 import { updateCurrentUser } from '../../../api/users.js';
 
-export default ({user}) => {
+const EditUserProfileForm = ({ user }) => {
   const { data, fields: { uid, name } } = useFormData(user);
   const [ editUserProfile, { isLoading } ] = useMutation(updateCurrentUser);
   const addToast = useAddToast();
@@ -19,7 +19,7 @@ export default ({user}) => {
     } else {
       addToast('Saved');
     }
-  });
+  }, [addToast, data, editUserProfile]);
 
   return (
     <form onSubmit={onSubmit} className="mt-3">
@@ -31,3 +31,5 @@ export default ({user}) => {
     </form>
   );
 };
+
+export default EditUserProfileForm;

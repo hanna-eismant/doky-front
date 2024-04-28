@@ -6,7 +6,7 @@ import { useAddToast } from '../../../components/Toasts';
 import { useMutation } from '../../../hooks/useMutation.js';
 import { updateDocument } from '../../../api/documents.js';
 
-export default ({ document }) => {
+const EditDocumentForm = ({ document }) => {
   const [fieldsError, setFieldsError] = useState({});
   const { data, fields: { name, description } } = useFormData(document);
   const [ editDocument, { isLoading } ] = useMutation(updateDocument);
@@ -22,7 +22,7 @@ export default ({ document }) => {
     } else {
       addToast('Saved');
     }
-  });
+  }, [addToast, data, editDocument]);
 
   const useFieldError = (fieldName) => {
     return fieldsError?.fields?.find(({field}) => field === fieldName);
@@ -46,3 +46,5 @@ export default ({ document }) => {
     </form>
   );
 };
+
+export default EditDocumentForm;

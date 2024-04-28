@@ -11,7 +11,7 @@ const initialFormData = {
   password: ''
 };
 
-export default () => {
+const Register = () => {
   const [globalError, setGlobalError] = useState({message: ''});
   const [fieldsError, setFieldsError] = useState({});
   const {data, fields: {uid, password}} = useFormData(initialFormData);
@@ -27,7 +27,7 @@ export default () => {
     } else {
       navigate('/');
     }
-  });
+  }, [data, navigate, register]);
 
   const useFieldError = (fieldName) => {
     return fieldsError?.fields?.find(({field}) => field === fieldName);
@@ -52,3 +52,5 @@ export default () => {
     </>
   );
 };
+
+export default Register;

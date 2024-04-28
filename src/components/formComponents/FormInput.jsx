@@ -2,7 +2,7 @@ import React, {useCallback} from 'react';
 import {noop} from '../../utils';
 import classNames from 'classnames';
 
-export default ({label, id, type, value = '', onChange = noop, validationError}) => {
+const FormInput = ({label, id, type, value = '', onChange = noop, validationError}) => {
   const handleOnChange = useCallback(event => {
     event.preventDefault();
     onChange(event.target.value);
@@ -20,10 +20,12 @@ export default ({label, id, type, value = '', onChange = noop, validationError})
           aria-describedby={'validation' + id + 'Feedback'}/>
         {validationError ?
           <div id={'validation' + id + 'Feedback'} className="invalid-feedback">
-            {validationError.messages.map((message) => (<div>{message}</div>))}
+            {validationError.messages.map((message) => (<div key={message}>{message}</div>))}
           </div>
           : null}
       </div>
     </div>
   );
 };
+
+export default FormInput;

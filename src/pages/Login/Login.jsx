@@ -11,7 +11,7 @@ const initialFormData = {
   password: ''
 };
 
-export default () => {
+const Login = () => {
   const [globalError, setGlobalError] = useState({message: ''});
   const [fieldsError, setFieldsError] = useState({});
   const {data, fields: {uid, password}} = useFormData(initialFormData);
@@ -27,7 +27,7 @@ export default () => {
     } else {
       navigate('/');
     }
-  });
+  }, [data, login, navigate]);
 
   const useFieldError = (fieldName) => {
     return fieldsError?.fields?.find(({field}) => field === fieldName);
@@ -38,7 +38,7 @@ export default () => {
       {globalError.message ? <AlertError message={globalError.message}/> : ''}
       <div className="d-flex align-items-center justify-content-center">
         <form onSubmit={onSubmit} className="col-3">
-          <img className="mb-3 mt-3 img-fluid" src="logo-color-bg.svg"/>
+          <img className="mb-3 mt-3 img-fluid" src="slogo-color-bg.svg"/>
           <FormInput id="uid" label="Email" type="text" value={data.uid} onChange={uid.setValue}
             validationError={useFieldError('uid')}/>
           <FormInput id="password" label="Password" type="password" value={data.password} onChange={password.setValue}
@@ -52,3 +52,5 @@ export default () => {
     </>
   );
 };
+
+export default Login;

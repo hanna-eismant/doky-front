@@ -4,7 +4,7 @@ import {useNavigate, useParams} from 'react-router-dom';
 import { useQuery } from '../../hooks/useQuery.js';
 import { getDocument } from '../../api/documents.js';
 
-export default () => {
+const EditDocumentPage = () => {
   const navigate = useNavigate();
   const params = useParams();
 
@@ -33,3 +33,5 @@ export default () => {
     </>
   );
 };
+
+export default EditDocumentPage;

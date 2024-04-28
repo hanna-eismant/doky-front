@@ -2,7 +2,7 @@ import React, {useCallback} from 'react';
 import CreateDocumentForm from './CreateDocumentForm/CreateDocumentForm.jsx';
 import {useNavigate} from 'react-router-dom';
 
-export default () => {
+const CreateDocumentPage = () => {
   const navigate = useNavigate();
 
   const goBack = useCallback(() => {
@@ -26,3 +26,5 @@ export default () => {
     </>
   );
 };
+
+export default CreateDocumentPage;
