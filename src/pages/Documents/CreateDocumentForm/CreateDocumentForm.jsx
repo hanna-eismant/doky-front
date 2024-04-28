@@ -5,6 +5,7 @@ import HorizontalFormText from '../../../components/formComponents/HorizontalFor
 import { useAddToast } from '../../../components/Toasts';
 import { useMutation } from '../../../hooks/useMutation.js';
 import { createDocument } from '../../../api/documents.js';
+import AlertError from '../../../components/AlertError.jsx';
 
 const initialFormData = {
   name: '',
@@ -15,7 +16,7 @@ const CreateDocumentForm = ({onCreated}) => {
   const [ documentMutation ] = useMutation(createDocument);
   const addToast = useAddToast();
 
-  const {data, fields: {name, description}, handleSubmit } = useForm(
+  const {data, fields: {name, description}, handleSubmit, globalError } = useForm(
     initialFormData,
     documentMutation,
     () => {
@@ -25,15 +26,18 @@ const CreateDocumentForm = ({onCreated}) => {
   );
 
   return (
-    <form onSubmit={handleSubmit} className="mt-3">
-      <HorizontalFormInput id="name" label="Name" type="text" value={data.name} onChange={name.setValue}
-        errors={name.errors} />
-      <HorizontalFormText id="description" label="Description" value={data.description}
-        onChange={description.setValue}/>
-      <div className="d-flex justify-content-between py-2">
-        <input type="submit" value="Create" className="btn btn-primary mb-3 float-right"/>
-      </div>
-    </form>
+    <>
+      {globalError ? <AlertError message={globalError} /> : null}
+      <form onSubmit={handleSubmit} className="mt-3">
+        <HorizontalFormInput id="name" label="Name" type="text" value={data.name} onChange={name.setValue}
+          errors={name.errors} />
+        <HorizontalFormText id="description" label="Description" value={data.description}
+          onChange={description.setValue}/>
+        <div className="d-flex justify-content-between py-2">
+          <input type="submit" value="Create" className="btn btn-primary mb-3 float-right"/>
+        </div>
+      </form>
+    </>
   );
 };
 
