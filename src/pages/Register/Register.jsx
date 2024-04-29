@@ -1,9 +1,9 @@
 import React from 'react';
 import {Link, useNavigate} from 'react-router-dom';
 
-import { useRegister } from './useRegisterQuery.js';
+import { useRegister } from './useRegister.js';
 import { useForm } from '../../hooks/useForm.js';
-import {FormInput} from '../../components';
+import { FormInput } from '../../components';
 import AlertError from '../../components/AlertError.jsx';
 
 const initialFormData = {
