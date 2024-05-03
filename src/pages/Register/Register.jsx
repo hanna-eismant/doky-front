@@ -1,9 +1,9 @@
-import React, {useCallback, useState} from 'react';
+import React from 'react';
 import {Link, useNavigate} from 'react-router-dom';
 
-import useFormData from '../../hooks/useFormData.js';
-import { useRegister } from './useRegisterQuery.js';
-import {FormInput} from '../../components';
+import { useRegister } from './useRegister.js';
+import { useForm } from '../../hooks/useForm.js';
+import { FormInput } from '../../components';
 import AlertError from '../../components/AlertError.jsx';
 
 const initialFormData = {
@@ -12,37 +12,28 @@ const initialFormData = {
 };
 
 const Register = () => {
-  const [globalError, setGlobalError] = useState({message: ''});
-  const [fieldsError, setFieldsError] = useState({});
-  const {data, fields: {uid, password}} = useFormData(initialFormData);
   const register = useRegister();
   const navigate = useNavigate();
 
-  const onSubmit = useCallback(async event => {
-    event.preventDefault();
-    const response = await register(data);
-    if (response?.error) {
-      setGlobalError({message: response.error.message});
-      setFieldsError({fields: response.fields});
-    } else {
-      navigate('/');
-    }
-  }, [data, navigate, register]);
-
-  const useFieldError = (fieldName) => {
-    return fieldsError?.fields?.find(({field}) => field === fieldName);
-  };
+  const {
+    data,
+    fields: { uid, password },
+    globalError,
+    handleSubmit
+  } = useForm(initialFormData, register, () => {
+    navigate('/');
+  });
 
   return (
     <>
-      {globalError.message ? <AlertError message={globalError.message}/> : ''}
+      {globalError ? <AlertError message={globalError}/> : ''}
       <div className="d-flex align-items-center justify-content-center">
-        <form onSubmit={onSubmit} className="col-3">
+        <form onSubmit={handleSubmit} className="col-3">
           <img className="mb-3 mt-3 img-fluid" src="/logo-color-bg.svg"/>
           <FormInput id="uid" label="Email" type="text" value={data.uid} onChange={uid.setValue}
-            validationError={useFieldError('uid')}/>
+            errors={uid.errors}/>
           <FormInput id="password" label="Password" type="password" value={data.password} onChange={password.setValue}
-            validationError={useFieldError('password')}/>
+            errors={password.errors}/>
           <div className="mt-3 row">
             <input type="submit" value="Register" className="btn btn-primary mb-3"/>
             <Link to="/login">Login</Link>
