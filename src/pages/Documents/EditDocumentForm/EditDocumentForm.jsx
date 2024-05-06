@@ -11,7 +11,7 @@ const EditDocumentForm = ({ document }) => {
   const [ editDocument, { isLoading } ] = useMutation(updateDocument);
 
   const addToast = useAddToast();
-  const { data, fields: { name, description }, handleSubmit } = useForm(document, editDocument, () => {
+  const { data, fields: { name, description }, handleSubmit, globalError } = useForm(document, editDocument, () => {
     addToast('saved');
   });
 
