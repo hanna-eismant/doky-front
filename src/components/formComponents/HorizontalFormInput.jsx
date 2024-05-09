@@ -15,9 +15,9 @@ const HorizontalFormInput = ({label, id, type, value = '', disabled = false, onC
   });
 
   return (
-    <div className="row mb-3">
-      <label className="col-sm-2 col-form-label" htmlFor={id}>{label}:</label>
-      <div className="col-sm-10 has-validation">
+    <div>
+      <label className="form-label" htmlFor={id}>{label}:</label>
+      <div className="has-validation">
         <input className={inputClassesList} id={id} type={type} value={value} disabled={disabled} onChange={handleOnChange}
           aria-describedby={'validation' + id + 'Feedback'}/>
         {hasErrors ?
