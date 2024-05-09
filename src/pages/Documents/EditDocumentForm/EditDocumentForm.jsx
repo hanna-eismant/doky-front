@@ -23,6 +23,18 @@ const EditDocumentForm = ({ document }) => {
           errors={name.errors}/>
         <HorizontalFormText id="description" label="Description" value={data.description}
           onChange={description.setValue}/>
+        <div>
+          <div>File:</div>
+          <div>{document.fileName}</div>
+          <div>
+            <button type="button" className="btn btn-outline-primary me-2">
+              <i className="bi bi-cloud-upload me-1"></i><span>Upload New</span>
+            </button>
+            <button type="button" className="btn btn-outline-primary me-2" disabled={!document.fileName}>
+              <i className="bi bi-cloud-download me-1"></i><span>Download</span>
+            </button>
+          </div>
+        </div>
         <div className="text-secondary">
           <em>Created by: {document.createdBy} at {document.createdDate}</em>
         </div>
