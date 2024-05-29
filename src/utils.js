@@ -1,12 +1,16 @@
 export const noop = () => {};
 
-const minTextRows = 3;
-const maxTextRows = 10;
-export const getValidRowCount = (currentLength) => {
-  if (currentLength < minTextRows) {
-    return minTextRows;
-  } else if (currentLength > maxTextRows) {
-    return maxTextRows;
+export const getRowsCount = str =>
+  str.split('\n').length;
+
+export const clamp = (value, min, max) => {
+  if (value < min) {
+    return min;
   }
-  return currentLength;
+
+  if (value > max) {
+    return max;
+  }
+
+  return value;
 };
