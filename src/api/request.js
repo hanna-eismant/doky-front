@@ -1,5 +1,7 @@
 import { BASE_URL } from 'config';
 
+const apiPrefix = '/api';
+
 const HEADERS = {
   'Content-Type': 'application/json'
 };
@@ -17,7 +19,7 @@ const getDefaultOptions = () => ({
 });
 
 const request = async (url, method, data ={}) => {
-  const response = await fetch(BASE_URL + '/' + url, {
+  const response = await fetch(BASE_URL + apiPrefix + '/' + url, {
     ...getDefaultOptions(),
     method,
     body: JSON.stringify(data)
@@ -37,7 +39,7 @@ export const put = async (url, data = {}) =>
   request(url, 'PUT', data);
 
 export const get = async url => {
-  const response = await fetch(BASE_URL + '/' + url, getDefaultOptions());
+  const response = await fetch(BASE_URL + apiPrefix + '/' + url, getDefaultOptions());
 
   return response.json();
 };
